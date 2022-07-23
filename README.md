@@ -1,6 +1,6 @@
-# flutter_application_1
+Student_management_using_statemanagement
 
-A new Flutter project.
+Provider
 
 ## Getting Started
 
