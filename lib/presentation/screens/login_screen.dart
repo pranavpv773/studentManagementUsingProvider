@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/presentation/widgets/core.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -8,40 +9,52 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(
-              'https://i.pinimg.com/originals/24/e9/d9/24e9d9fe3469d58936be626c7781bf0c.jpg',
+              backgroundImage,
             ),
           ),
         ),
         child: ListView(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 55),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 0,
+                vertical: 55,
+              ),
               child: Image(
                 image: NetworkImage(
-                  'https://pngimg.com/uploads/teacher/teacher_PNG13.png',
+                  teacherImage,
                 ),
                 height: 250,
               ),
             ),
             Card(
               color: Colors.transparent,
-              margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 0),
+              margin: const EdgeInsets.symmetric(
+                horizontal: 25,
+                vertical: 0,
+              ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(
+                  10.0,
+                ),
               ),
               child: Column(
                 children: [
                   TextButton(
                     onPressed: (() {}),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                        8.0,
+                      ),
                       child: Text(
                         'New User? Create Account',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: kWhite,
+                        ),
                       ),
                     ),
                   ),
@@ -52,27 +65,33 @@ class LoginScreen extends StatelessWidget {
                     ),
                     child: TextFormField(
                       controller: _userName,
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
-                      decoration: const InputDecoration(
+                      style: TextStyle(
+                        color: kWhite,
+                        fontSize: 18,
+                      ),
+                      decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              width: 2.0),
+                            color: lightWhite,
+                            width: 2.0,
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.teal, width: 2.0),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.teal,
+                            width: 2.0,
+                          ),
                         ),
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         labelText: 'User Name',
                         labelStyle: TextStyle(
                           fontSize: 20,
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: lightWhite,
                         ),
                         hintText: 'Username',
                         hintStyle: TextStyle(
                           fontSize: 15,
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: lightWhite,
                         ),
                       ),
                     ),
@@ -84,38 +103,44 @@ class LoginScreen extends StatelessWidget {
                     ),
                     child: TextFormField(
                       controller: _password,
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(
+                        color: kWhite,
+                        fontSize: 18,
+                      ),
                       obscureText: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              width: 2.0),
+                            color: lightWhite,
+                            width: 2.0,
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.teal, width: 2.0),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.teal,
+                            width: 2.0,
+                          ),
                         ),
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         labelText: 'Password',
                         labelStyle: TextStyle(
                           fontSize: 20,
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: lightWhite,
                         ),
                         hintText: 'Password',
                         hintStyle: TextStyle(
                           fontSize: 15,
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: lightWhite,
                         ),
                       ),
                     ),
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: Text(
                       'Forgot Password ?',
                       style: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: lightWhite,
                         fontSize: 15,
                       ),
                     ),
@@ -129,7 +154,9 @@ class LoginScreen extends StatelessWidget {
                       primary: const Color.fromARGB(209, 206, 30, 104),
                       elevation: 10,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(
+                          10,
+                        ),
                       ),
                     ),
                     onPressed: (() {
@@ -176,7 +203,9 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(ctx1).pop();
                 },
-                child: const Text('Close'),
+                child: const Text(
+                  'Close',
+                ),
               )
             ],
           );
