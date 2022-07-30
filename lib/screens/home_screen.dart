@@ -36,7 +36,9 @@ class _ScreenHomeState extends State<ScreenHome> {
                   ),
                 );
               },
-              icon: const Icon(Icons.search),
+              icon: const Icon(
+                Icons.search,
+              ),
             )
           ],
         ),

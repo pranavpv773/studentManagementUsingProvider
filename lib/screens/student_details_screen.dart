@@ -29,9 +29,10 @@ class ScreenStudentDetails extends StatelessWidget {
                   child: Text(
                     'DETAILS',
                     style: TextStyle(
-                        fontSize: 59,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                      fontSize: 59,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const Divider(
