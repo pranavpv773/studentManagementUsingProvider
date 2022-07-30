@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/domain/database/db_functions.dart';
+import 'package:flutter_application_1/presentation/screens/home_screen.dart';
 import 'package:flutter_application_1/presentation/screens/login_screen.dart';
+import 'package:flutter_application_1/provider/provider_class.dart';
 
-void main() {
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+
+import 'domain/model/data_model.dart';
+
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); //Ensure plugin services are initialized
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(StudentModelAdapter().typeId)) {
+    Hive.registerAdapter(StudentModelAdapter());
+  }
   runApp(
     const StudentManagement(),
   );
@@ -13,12 +27,18 @@ class StudentManagement extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => StudentDbFunctions(),
+        ),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const StudentHomeScreen(),
       ),
-      home: LoginScreen(),
     );
   }
 }

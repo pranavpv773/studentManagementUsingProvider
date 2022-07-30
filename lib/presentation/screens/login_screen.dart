@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/presentation/widgets/core.dart';
+import 'package:flutter_application_1/core/colors.dart';
+import 'package:flutter_application_1/presentation/screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -72,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: lightWhite,
+                            color: klightWhite,
                             width: 2.0,
                           ),
                         ),
@@ -86,12 +87,12 @@ class LoginScreen extends StatelessWidget {
                         labelText: 'User Name',
                         labelStyle: TextStyle(
                           fontSize: 20,
-                          color: lightWhite,
+                          color: klightWhite,
                         ),
                         hintText: 'Username',
                         hintStyle: TextStyle(
                           fontSize: 15,
-                          color: lightWhite,
+                          color: klightWhite,
                         ),
                       ),
                     ),
@@ -111,7 +112,7 @@ class LoginScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: lightWhite,
+                            color: klightWhite,
                             width: 2.0,
                           ),
                         ),
@@ -125,12 +126,12 @@ class LoginScreen extends StatelessWidget {
                         labelText: 'Password',
                         labelStyle: TextStyle(
                           fontSize: 20,
-                          color: lightWhite,
+                          color: klightWhite,
                         ),
                         hintText: 'Password',
                         hintStyle: TextStyle(
                           fontSize: 15,
-                          color: lightWhite,
+                          color: klightWhite,
                         ),
                       ),
                     ),
@@ -140,7 +141,7 @@ class LoginScreen extends StatelessWidget {
                     child: Text(
                       'Forgot Password ?',
                       style: TextStyle(
-                        color: lightWhite,
+                        color: klightWhite,
                         fontSize: 15,
                       ),
                     ),
@@ -162,7 +163,9 @@ class LoginScreen extends StatelessWidget {
                     onPressed: (() {
                       checkLogin(context);
                     }),
-                    child: const Text('Login'),
+                    child: const Text(
+                      'Login',
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -182,11 +185,11 @@ class LoginScreen extends StatelessWidget {
     final _user = _userName.text;
     final _pass = _password.text;
     if (_user == 'School' && _pass == 'admin') {
-      // Navigator.of(ctx).pushReplacement(
-      //   MaterialPageRoute(
-      //     builder: (ctx1) => const ScreenHome(),
-      //   ),
-      // );
+      Navigator.of(ctx).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx1) => const StudentHomeScreen(),
+        ),
+      );
     } else {
       const _errorMsg = "Invalid Username OR Password!!!";
       showDialog(
