@@ -43,10 +43,12 @@ class StudentDbFunctions with ChangeNotifier {
 
   imageadd(XFile? pickImage) async {
     if (pickImage == null) {
+      print("pickImage NULL");
       return 'assets/avathar.png';
     } else {
       final bayts = File(pickImage.path).readAsBytesSync();
       imgstring = base64Encode(bayts);
+      print("imageFunction:$imgstring");
     }
     notifyListeners();
   }
