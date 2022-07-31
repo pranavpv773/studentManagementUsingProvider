@@ -39,12 +39,13 @@ class StudentDbFunctions with ChangeNotifier {
     notifyListeners();
   }
 
+  File? imagefile;
   String imgstring = '';
 
-  imageadd(XFile? pickImage) async {
+  imageadd(XFile? pickImage) {
     if (pickImage == null) {
       print("pickImage NULL");
-      return 'assets/avathar.png';
+      return 'assets/download.png';
     } else {
       final bayts = File(pickImage.path).readAsBytesSync();
       imgstring = base64Encode(bayts);
