@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/domain/database/db_functions.dart';
+import 'package:provider/provider.dart';
 
 import '../../domain/model/data_model.dart';
+import '../screens/student_details_screen.dart';
 
 class StudentHomeTile extends StatelessWidget {
   const StudentHomeTile({
@@ -45,20 +48,21 @@ class StudentHomeTile extends StatelessWidget {
       trailing: IconButton(
         color: Colors.pink,
         onPressed: () {
-          // if (data.id != null) {
-          //   deleteStudent(data.id!);
-          // }
+          if (data.id != null) {
+            Provider.of<StudentDbFunctions>(context, listen: false)
+                .deleteStudent(data.id!);
+          }
         },
         icon: const Icon(Icons.delete),
       ),
       onTap: () {
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (ctx) => ScreenStudentDetails(
-        //       studentmodel: studentList[index],
-        //     ),
-        //   ),
-        // );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => ScreenStudentDetails(
+              studentmodel: data,
+            ),
+          ),
+        );
       },
     );
   }

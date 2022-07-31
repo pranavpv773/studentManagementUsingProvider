@@ -29,22 +29,25 @@ class StudentDbFunctions with ChangeNotifier {
     final studentDb = await Hive.openBox<StudentModel>('student_db');
     await studentDb.delete(id);
     getallStudents();
+    notifyListeners();
   }
 
   studentupdate(int id, StudentModel value) async {
     final studentDb = await Hive.openBox<StudentModel>('student_db');
     await studentDb.put(id, value);
     getallStudents();
+    notifyListeners();
   }
 
   String imgstring = '';
 
   imageadd(XFile? pickImage) async {
     if (pickImage == null) {
-      return;
+      return 'assets/avathar.png';
     } else {
       final bayts = File(pickImage.path).readAsBytesSync();
       imgstring = base64Encode(bayts);
     }
+    notifyListeners();
   }
 }

@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(
-              backgroundImage,
+              kBackgroundImage,
             ),
           ),
         ),

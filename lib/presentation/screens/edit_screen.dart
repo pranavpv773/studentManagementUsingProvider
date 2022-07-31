@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../domain/model/data_model.dart';
+import 'home_screen.dart';
 
 class StudentEditScreen extends StatelessWidget {
   StudentEditScreen({Key? key, required this.studentmodel}) : super(key: key);
@@ -142,6 +143,11 @@ class StudentEditScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     updateStudent();
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (ctx1) => const StudentHomeScreen(),
+                      ),
+                    );
                   },
                   child: const Text(
                     'Update',
@@ -277,15 +283,15 @@ class StudentEditScreen extends StatelessWidget {
         age: age,
         phoneNumber: phone,
         place: places,
-        imgstri: StudentDbFunctions().imgstring,
+        imgstri: "",
         id: studentmodel.id,
       );
 
       if (studentup.id != null) {
         await Provider.of<StudentDbFunctions>(
           _formkey.currentState!.context,
+          listen: false,
         ).studentupdate(studentup.id!, studentup);
-        StudentDbFunctions().imgstring = '';
       }
     }
   }

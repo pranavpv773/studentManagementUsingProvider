@@ -247,9 +247,13 @@ class StudentAddScreen extends StatelessWidget {
       source: ImageSource.camera,
     );
 
-    if (image == null) return;
+    if (image == null) {
+      return;
+    }
 
-    final imageTemprary = File(image.path);
+    File imageTemprary = File(
+      image.path,
+    );
     imagefile = imageTemprary;
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
@@ -359,7 +363,6 @@ class StudentAddScreen extends StatelessWidget {
       Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
               listen: false)
           .addStudent(_student);
-      StudentDbFunctions().imgstring = '';
     }
   }
 }

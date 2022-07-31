@@ -61,8 +61,9 @@ class StudentHomeScreen extends StatelessWidget {
                     ),
                     leading: CircleAvatar(
                       radius: 40,
-                      child: data.imgstri.isEmpty
+                      child: StudentDbFunctions().imgstring.trim().isEmpty
                           ? CircleAvatar(
+                              backgroundColor: kWhite,
                               radius: 50,
                               backgroundImage: MemoryImage(
                                 const Base64Decoder().convert(
@@ -78,11 +79,16 @@ class StudentHomeScreen extends StatelessWidget {
                       color: kPink,
                       onPressed: () {
                         if (data.id != null) {
-                          Provider.of<StudentDbFunctions>(context)
-                              .deleteStudent(data.id!);
+                          Provider.of<StudentDbFunctions>(context,
+                                  listen: false)
+                              .deleteStudent(
+                            value.studentlistNotifier[index].id!,
+                          );
                         }
                       },
-                      icon: const Icon(Icons.delete),
+                      icon: const Icon(
+                        Icons.delete,
+                      ),
                     ),
                     onTap: () {
                       Navigator.of(context).push(
