@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../domain/model/data_model.dart';
+import '../widgets/text_widget.dart';
 import 'home_screen.dart';
 
 class StudentEditScreen extends StatelessWidget {
@@ -46,15 +47,11 @@ class StudentEditScreen extends StatelessWidget {
                 ),
                 Form(
                   key: _formkey,
-                  child: Center(
-                      child: Text(
-                    'EDIT',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: kWhite,
+                  child: const Center(
+                    child: TextWidget(
+                      title: 'edit',
                     ),
-                  )),
+                  ),
                 ),
                 CircleAvatar(
                   radius: 40,

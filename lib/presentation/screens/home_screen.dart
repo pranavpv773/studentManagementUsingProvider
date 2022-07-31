@@ -5,6 +5,7 @@ import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
 import 'package:flutter_application_1/presentation/screens/add_screen.dart';
 import 'package:flutter_application_1/presentation/screens/student_details_screen.dart';
+import 'package:flutter_application_1/presentation/widgets/student_home_tile.dart';
 import 'package:provider/provider.dart';
 
 class StudentHomeScreen extends StatelessWidget {
@@ -46,59 +47,8 @@ class StudentHomeScreen extends StatelessWidget {
               return ListView.separated(
                 itemBuilder: (ctx, index) {
                   final data = value.studentlistNotifier[index];
-                  return ListTile(
-                    title: Text(
-                      data.name,
-                      style: TextStyle(
-                        color: kWhite,
-                      ),
-                    ),
-                    subtitle: Text(
-                      data.age,
-                      style: TextStyle(
-                        color: kWhite,
-                      ),
-                    ),
-                    leading: CircleAvatar(
-                      radius: 40,
-                      child: StudentDbFunctions().imgstring.trim().isEmpty
-                          ? CircleAvatar(
-                              backgroundColor: kWhite,
-                              radius: 50,
-                              backgroundImage: MemoryImage(
-                                const Base64Decoder().convert(
-                                  data.imgstri,
-                                ),
-                              ),
-                            )
-                          : Container(
-                              color: kWhite,
-                            ),
-                    ),
-                    trailing: IconButton(
-                      color: kPink,
-                      onPressed: () {
-                        if (data.id != null) {
-                          Provider.of<StudentDbFunctions>(context,
-                                  listen: false)
-                              .deleteStudent(
-                            value.studentlistNotifier[index].id!,
-                          );
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.delete,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (ctx) => ScreenStudentDetails(
-                            studentmodel: value.studentlistNotifier[index],
-                          ),
-                        ),
-                      );
-                    },
+                  return StudentHomeTile(
+                    data: value.studentlistNotifier[index],
                   );
                 },
                 separatorBuilder: (ctx, index) {

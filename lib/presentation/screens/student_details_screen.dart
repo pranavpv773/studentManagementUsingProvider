@@ -4,6 +4,7 @@ import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
 import 'package:flutter_application_1/presentation/screens/edit_screen.dart';
 import '../../domain/model/data_model.dart';
+import '../widgets/text_widget.dart';
 
 class ScreenStudentDetails extends StatelessWidget {
   final StudentModel studentmodel;
@@ -26,14 +27,9 @@ class ScreenStudentDetails extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Center(
-                  child: Text(
-                    'DETAILS',
-                    style: TextStyle(
-                      fontSize: 59,
-                      fontWeight: FontWeight.bold,
-                      color: kWhite,
-                    ),
+                const Center(
+                  child: TextWidget(
+                    title: 'details',
                   ),
                 ),
                 Divider(
