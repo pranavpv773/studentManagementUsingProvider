@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/model/data_model.dart';
@@ -240,6 +242,7 @@ class StudentAddScreen extends StatelessWidget {
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
         .imageadd(image);
+    print("image");
   }
 
   Future<void> takecamera() async {
@@ -248,13 +251,17 @@ class StudentAddScreen extends StatelessWidget {
     );
 
     if (image == null) {
+      print("NULL");
       return;
     }
 
-    final File imageTemprary = File(
+    File imageTemprary = File(
       image.path,
     );
+    print("image.path: ${image.path}");
     imagefile = imageTemprary;
+    print("imageTemprary:$imageTemprary");
+    print("imagefile:$imagefile");
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
         .imageadd(image);
@@ -263,7 +270,7 @@ class StudentAddScreen extends StatelessWidget {
   Future<void> showBottomSheet(BuildContext context) async {
     showModalBottomSheet(
       context: context,
-      builder: (ctx1) {
+      builder: (context) {
         return Container(
           height: 100,
           width: double.infinity,
@@ -360,10 +367,9 @@ class StudentAddScreen extends StatelessWidget {
         imgstri: StudentDbFunctions().imgstring,
       );
 
-      Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-              listen: false)
+      Provider.of<StudentDbFunctions>(_formkey.currentContext!, listen: false)
           .addStudent(_student);
-      // StudentDbFunctions().imgstring = '';
+      print('functionAdd${StudentDbFunctions().imgstring}');
     }
   }
 }

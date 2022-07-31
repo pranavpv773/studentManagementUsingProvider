@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
 import 'package:flutter_application_1/presentation/screens/add_screen.dart';
-import 'package:flutter_application_1/presentation/screens/student_details_screen.dart';
 import 'package:flutter_application_1/presentation/widgets/student_home_tile.dart';
 import 'package:provider/provider.dart';
 
