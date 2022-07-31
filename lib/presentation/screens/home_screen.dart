@@ -43,7 +43,7 @@ class StudentHomeScreen extends StatelessWidget {
             builder: (context, value, child) {
               return ListView.separated(
                 itemBuilder: (ctx, index) {
-                  final data = value.studentlistNotifier[index];
+                  // final data = value.studentlistNotifier[index];
                   return StudentHomeTile(
                     data: value.studentlistNotifier[index],
                   );
