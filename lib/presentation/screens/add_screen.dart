@@ -1,13 +1,11 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../domain/model/data_model.dart';
@@ -25,8 +23,6 @@ class StudentAddScreen extends StatelessWidget {
   final _phoneNumberController = TextEditingController();
 
   final _placeController = TextEditingController();
-
-  File? imagefile;
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +234,9 @@ class StudentAddScreen extends StatelessWidget {
     if (image == null) return;
 
     final File imageTemprary = File(image.path);
-    imagefile = imageTemprary;
+    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
+            listen: false)
+        .imagefile = imageTemprary;
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
         .imageadd(image);
@@ -259,9 +257,12 @@ class StudentAddScreen extends StatelessWidget {
       image.path,
     );
     print("image.path: ${image.path}");
-    imagefile = imageTemprary;
+    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
+            listen: false)
+        .imagefile = imageTemprary;
     print("imageTemprary:$imageTemprary");
-    print("imagefile:$imagefile");
+    print(
+        "imagefile:${Provider.of<StudentDbFunctions>(_formkey.currentState!.context, listen: false).imagefile}");
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
         .imageadd(image);
@@ -319,12 +320,18 @@ class StudentAddScreen extends StatelessWidget {
   Widget imageprofile(BuildContext context) {
     return Stack(
       children: [
-        imagefile != null
-            ? Image.file(
-                imagefile!,
-                width: 250,
-                height: 250,
-                fit: BoxFit.cover,
+        Provider.of<StudentDbFunctions>(context, listen: true).imagefile != null
+            ? Consumer<StudentDbFunctions>(
+                builder: (context, value, child) {
+                  return Image.file(
+                    value.imagefile!,
+                    // Provider.of<StudentDbFunctions>(context, listen: false)
+                    //     .imagefile!,
+                    width: 250,
+                    height: 250,
+                    fit: BoxFit.cover,
+                  );
+                },
               )
             : Image.asset(
                 'assets/avathar.png',
@@ -369,7 +376,8 @@ class StudentAddScreen extends StatelessWidget {
 
       Provider.of<StudentDbFunctions>(_formkey.currentContext!, listen: false)
           .addStudent(_student);
-      print('functionAdd${StudentDbFunctions().imgstring}');
+      print(
+          'functionAdd${Provider.of<StudentDbFunctions>(_formkey.currentContext!, listen: false).imgstring}');
     }
   }
 }
