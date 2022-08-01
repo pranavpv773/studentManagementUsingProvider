@@ -1,11 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
-import 'package:image_picker/image_picker.dart';
-
 import '../model/data_model.dart';
 
 class StudentDbFunctions with ChangeNotifier {
