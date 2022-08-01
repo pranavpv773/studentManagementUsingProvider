@@ -38,12 +38,11 @@ class StudentHomeScreen extends StatelessWidget {
           ],
         ),
         body: Container(
-          color: const Color.fromARGB(255, 19, 40, 85),
+          color: kBackground,
           child: Consumer<StudentDbFunctions>(
             builder: (context, value, child) {
               return ListView.separated(
                 itemBuilder: (ctx, index) {
-                  // final data = value.studentlistNotifier[index];
                   return StudentHomeTile(
                     data: value.studentlistNotifier[index],
                   );
