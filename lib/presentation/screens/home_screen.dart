@@ -16,6 +16,7 @@ class StudentHomeScreen extends StatelessWidget {
             .getallStudents();
       },
     );
+    context.read<StudentDbFunctions>().imgstring = '';
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

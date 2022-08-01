@@ -141,7 +141,7 @@ class StudentEditScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    updateStudent(context);
+                    updateStudent(context, studentmodel);
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (ctx1) => const StudentHomeScreen(),
@@ -170,12 +170,10 @@ class StudentEditScreen extends StatelessWidget {
     if (image == null) return;
 
     final File imageTemprary = File(image.path);
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = imageTemprary;
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = File(image.path);
+    Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
+        imageTemprary;
+    Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
+        File(image.path);
 
     final bayts = File(image.path).readAsBytesSync();
     String encode = base64Encode(bayts);
@@ -193,9 +191,8 @@ class StudentEditScreen extends StatelessWidget {
       print("NULL");
       return;
     }
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = File(image.path);
+    Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
+        File(image.path);
 
     final bayts = File(image.path).readAsBytesSync();
     String encode = base64Encode(bayts);
@@ -265,8 +262,11 @@ class StudentEditScreen extends StatelessWidget {
                       const Base64Decoder().convert(value.imgstring),
                     ),
                   )
-                : Container(
-                    color: kWhite,
+                : CircleAvatar(
+                    radius: 50,
+                    backgroundImage: MemoryImage(
+                      const Base64Decoder().convert(studentmodel.imgstri),
+                    ),
                   ),
           ),
           Padding(
@@ -287,17 +287,17 @@ class StudentEditScreen extends StatelessWidget {
     });
   }
 
-  Future<void> updateStudent(BuildContext context) async {
+  Future<void> updateStudent(
+      BuildContext context, StudentModel studentmodel) async {
     final name = nameUpdateController.text;
     final age = ageUpdateController.text;
     final phone = phoneUpdateController.text;
     final places = placeUpdateController.text;
+    if (context.read<StudentDbFunctions>().imgstring.isEmpty) {
+      context.read<StudentDbFunctions>().imgstring = studentmodel.imgstri;
+    }
 
-    if (name.isEmpty ||
-        age.isEmpty ||
-        phone.isEmpty ||
-        places.isEmpty ||
-        context.read<StudentDbFunctions>().imgstring.isEmpty) {
+    if (name.isEmpty || age.isEmpty || phone.isEmpty || places.isEmpty) {
       return;
     } else {
       final studentup = StudentModel(
@@ -309,12 +309,11 @@ class StudentEditScreen extends StatelessWidget {
         id: studentmodel.id,
       );
 
-      if (studentup.id != null) {
-        await Provider.of<StudentDbFunctions>(
-          _formkey.currentState!.context,
-          listen: false,
-        ).studentupdate(studentup.id!, studentup);
-      }
+      await Provider.of<StudentDbFunctions>(_formkey.currentContext!,
+              listen: false)
+          .studentupdate(studentup.id!, studentup);
+
+      // context.read<StudentDbFunctions>().imgstring = '';
     }
   }
 }
