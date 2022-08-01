@@ -202,7 +202,9 @@ class StudentAddScreen extends StatelessWidget {
                               backgroundColor: kPink,
                               content: Text(
                                 'Student Added Successfully....',
-                                style: TextStyle(color: kWhite),
+                                style: TextStyle(
+                                  color: kWhite,
+                                ),
                               ),
                             ),
                           );

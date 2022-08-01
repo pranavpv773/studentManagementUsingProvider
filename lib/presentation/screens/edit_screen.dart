@@ -57,7 +57,7 @@ class StudentEditScreen extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 40,
-                  child: imageprofile(context),
+                  child: imageprofile(context, studentmodel.imgstri),
                 ),
                 const SizedBox(
                   height: 40,
@@ -258,7 +258,7 @@ class StudentEditScreen extends StatelessWidget {
     );
   }
 
-  Widget imageprofile(BuildContext context) {
+  Widget imageprofile(BuildContext context, String imgstri) {
     return Stack(
       children: [
         CircleAvatar(

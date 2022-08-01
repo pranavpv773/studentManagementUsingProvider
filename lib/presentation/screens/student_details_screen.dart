@@ -41,7 +41,7 @@ class ScreenStudentDetails extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 50,
-                  child: StudentDbFunctions().imgstring.trim().isNotEmpty
+                  child: StudentDbFunctions().imgstring.trim().isEmpty
                       ? CircleAvatar(
                           radius: 100,
                           backgroundImage: MemoryImage(

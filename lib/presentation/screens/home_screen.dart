@@ -19,6 +19,7 @@ class StudentHomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Text("Teacher's Record"),
           backgroundColor: kPink,
@@ -41,6 +42,13 @@ class StudentHomeScreen extends StatelessWidget {
           color: kBackground,
           child: Consumer<StudentDbFunctions>(
             builder: (context, value, child) {
+              if (value.studentlistNotifier.isEmpty) {
+                return const Center(
+                  child: Text(
+                    "No Data found",
+                  ),
+                );
+              }
               return ListView.separated(
                 itemBuilder: (ctx, index) {
                   return StudentHomeTile(
