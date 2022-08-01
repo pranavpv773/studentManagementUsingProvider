@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
@@ -41,16 +42,20 @@ class StudentDbFunctions with ChangeNotifier {
 
   File? imagefile;
   String imgstring = '';
-
-  imageadd(XFile? pickImage) {
-    if (pickImage == null) {
-      print("pickImage NULL");
-      return 'assets/download.png';
-    } else {
-      final bayts = File(pickImage.path).readAsBytesSync();
-      imgstring = base64Encode(bayts);
-      print("imageFunction:$imgstring");
-    }
+  changeImage(String imgstring) {
+    this.imgstring = imgstring;
     notifyListeners();
   }
+
+  // imageadd(XFile? pickImage) {
+  //   if (pickImage == null) {
+  //     print("pickImage NULL");
+  //     return 'assets/download.png';
+  //   } else {
+  //     final bayts = File(pickImage.path).readAsBytesSync();
+  //     imgstring = base64Encode(bayts);
+  //     print("imageFunction:$imgstring");
+  //   }
+  //   notifyListeners();
+  // }
 }

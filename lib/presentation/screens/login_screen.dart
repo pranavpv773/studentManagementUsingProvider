@@ -103,6 +103,7 @@ class LoginScreen extends StatelessWidget {
                       vertical: 10,
                     ),
                     child: TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
                       controller: _password,
                       style: TextStyle(
                         color: kWhite,

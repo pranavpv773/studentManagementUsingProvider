@@ -21,7 +21,7 @@ class ScreenStudentDetails extends StatelessWidget {
         ),
         body: SafeArea(
           child: Container(
-            color: const Color.fromARGB(255, 19, 40, 85),
+            color: kBackground,
             child: ListView(
               children: [
                 const SizedBox(
@@ -41,7 +41,7 @@ class ScreenStudentDetails extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: 50,
-                  child: StudentDbFunctions().imgstring.trim().isEmpty
+                  child: StudentDbFunctions().imgstring.trim().isNotEmpty
                       ? CircleAvatar(
                           radius: 100,
                           backgroundImage: MemoryImage(

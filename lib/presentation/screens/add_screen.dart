@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
+import 'package:flutter_application_1/presentation/widgets/image_profile.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +37,7 @@ class StudentAddScreen extends StatelessWidget {
           padding: const EdgeInsets.all(
             20,
           ),
-          color: const Color.fromARGB(255, 19, 40, 85),
+          color: kBackground,
           child: ListView(
             children: [
               Form(
@@ -53,8 +55,8 @@ class StudentAddScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Center(
-                      child: imageprofile(context),
+                    const Center(
+                      child: ImageProfile(),
                     ),
                     const SizedBox(
                       height: 20,
@@ -196,14 +198,16 @@ class StudentAddScreen extends StatelessWidget {
                       onPressed: () {
                         if (_formkey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
+                            SnackBar(
+                              backgroundColor: kPink,
                               content: Text(
                                 'Student Added Successfully....',
+                                style: TextStyle(color: kWhite),
                               ),
                             ),
                           );
                         }
-                        onAddStudentButtonClicked();
+                        onAddStudentButtonClicked(context);
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (ctx1) => const StudentHomeScreen(),
@@ -226,139 +230,7 @@ class StudentAddScreen extends StatelessWidget {
 
 //-------------------------------------|||||Functions||||||------------------------------------------------------------------------------------
 
-  Future<void> takePhoto() async {
-    XFile? image = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (image == null) return;
-
-    final File imageTemprary = File(image.path);
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = imageTemprary;
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imageadd(image);
-    print("image");
-  }
-
-  Future<void> takecamera() async {
-    XFile? image = await ImagePicker().pickImage(
-      source: ImageSource.camera,
-    );
-
-    if (image == null) {
-      print("NULL");
-      return;
-    }
-
-    File imageTemprary = File(
-      image.path,
-    );
-    print("image.path: ${image.path}");
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = imageTemprary;
-    print("imageTemprary:$imageTemprary");
-    print(
-        "imagefile:${Provider.of<StudentDbFunctions>(_formkey.currentState!.context, listen: false).imagefile}");
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imageadd(image);
-  }
-
-  Future<void> showBottomSheet(BuildContext context) async {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Container(
-          height: 100,
-          width: double.infinity,
-          color: kPink,
-          child: Padding(
-            padding: const EdgeInsets.all(
-              8.0,
-            ),
-            child: Column(children: [
-              Text(
-                'choose your profile photo',
-                style: TextStyle(
-                  color: kWhite,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      takecamera();
-                    },
-                    icon: Icon(
-                      Icons.camera_front_outlined,
-                      color: kWhite,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      takePhoto();
-                    },
-                    icon: Icon(
-                      Icons.image_rounded,
-                      color: kWhite,
-                    ),
-                  )
-                ],
-              )
-            ]),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget imageprofile(BuildContext context) {
-    return Stack(
-      children: [
-        Provider.of<StudentDbFunctions>(context, listen: true).imagefile != null
-            ? Consumer<StudentDbFunctions>(
-                builder: (context, value, child) {
-                  return Image.file(
-                    value.imagefile!,
-                    // Provider.of<StudentDbFunctions>(context, listen: false)
-                    //     .imagefile!,
-                    width: 250,
-                    height: 250,
-                    fit: BoxFit.cover,
-                  );
-                },
-              )
-            : Image.asset(
-                'assets/avathar.png',
-                width: 250,
-                height: 250,
-              ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 150,
-            left: 150,
-          ),
-          child: IconButton(
-            onPressed: () {
-              showBottomSheet(context);
-            },
-            icon: Icon(
-              Icons.camera_alt,
-              color: kPink,
-              size: 80,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Future<void> onAddStudentButtonClicked() async {
+  Future<void> onAddStudentButtonClicked(BuildContext context) async {
     final name = _nameController.text;
     final age = _ageController.text;
     final phoneNumber = _phoneNumberController.text;
@@ -371,13 +243,14 @@ class StudentAddScreen extends StatelessWidget {
         age: age,
         phoneNumber: phoneNumber,
         place: place,
-        imgstri: StudentDbFunctions().imgstring,
+        imgstri: context.read<StudentDbFunctions>().imgstring,
       );
 
-      Provider.of<StudentDbFunctions>(_formkey.currentContext!, listen: false)
+      Provider.of<StudentDbFunctions>(context, listen: false)
           .addStudent(_student);
       print(
-          'functionAdd${Provider.of<StudentDbFunctions>(_formkey.currentContext!, listen: false).imgstring}');
+          'functionAdd${Provider.of<StudentDbFunctions>(context, listen: false).imgstring}');
+      context.read<StudentDbFunctions>().imgstring = '';
     }
   }
 }

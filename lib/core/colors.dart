@@ -10,3 +10,4 @@ String teacherImage = 'https://pngimg.com/uploads/teacher/teacher_PNG13.png';
 Color klightWhite = const Color.fromARGB(255, 255, 255, 255);
 Color kWhite = Colors.white;
 Color kPink = Colors.pink;
+Color kBackground = const Color.fromARGB(255, 19, 40, 85);

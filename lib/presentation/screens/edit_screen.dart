@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -37,7 +39,7 @@ class StudentEditScreen extends StatelessWidget {
           backgroundColor: kPink,
         ),
         body: Container(
-          color: const Color.fromARGB(255, 19, 40, 85),
+          color: kBackground,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: ListView(
@@ -161,27 +163,50 @@ class StudentEditScreen extends StatelessWidget {
 //-------------------------------------|||||Functions||||||------------------------------------------------------------------------------------
 
   Future<void> takePhoto() async {
-    XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
     if (image == null) return;
 
-    final imageTemprary = File(image.path);
-    imagefile = imageTemprary;
+    final File imageTemprary = File(image.path);
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
-        .imageadd(image);
+        .imagefile = imageTemprary;
+    // Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
+    //         listen: false)
+    //     .imageadd(image);
+    print("image");
   }
 
-  Future<void> takecamera() async {
-    XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+  Future<void> takecamera(BuildContext context) async {
+    XFile? image = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+    );
 
-    if (image == null) return;
+    if (image == null) {
+      print("NULL");
+      return;
+    }
 
-    final imageTemprary = File(image.path);
-    imagefile = imageTemprary;
+    // File imageTemprary = File(
+    //   image.path,
+    // );
+    // print("image.path: ${image.path}");
     Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
             listen: false)
-        .imageadd(image);
+        .imagefile = File(image.path);
+    // print("imageTemprary:$imageTemprary");
+    // print(
+    //     "imagefile:${Provider.of<StudentDbFunctions>(_formkey.currentState!.context, listen: false).imagefile}");
+    // Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
+    //         listen: false)
+    //     .imageadd(image);
+    final bayts = File(image.path).readAsBytesSync();
+    String encode = base64Encode(bayts);
+    context.read<StudentDbFunctions>().changeImage(encode);
+    // Provider.of<StudentDbFunctions>(context, listen: true).imgstring =
+    //     base64Encode(bayts);
   }
 
   Future<void> showBottomSheet(BuildContext context) async {
@@ -207,7 +232,7 @@ class StudentEditScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        takecamera();
+                        takecamera(context);
                       },
                       icon: Icon(
                         Icons.camera_front_outlined,
