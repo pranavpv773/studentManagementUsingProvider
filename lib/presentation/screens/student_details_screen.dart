@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
 import 'package:flutter_application_1/presentation/screens/edit_screen.dart';
+import 'package:provider/provider.dart';
 import '../../domain/model/data_model.dart';
 import '../widgets/text_widget.dart';
 
@@ -122,6 +123,7 @@ class ScreenStudentDetails extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
+                      context.read<StudentDbFunctions>().imgstring = '';
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (ctx) => StudentEditScreen(

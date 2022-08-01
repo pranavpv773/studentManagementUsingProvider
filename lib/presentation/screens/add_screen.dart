@@ -1,15 +1,9 @@
 // ignore_for_file: must_be_immutable
-
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/colors.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
-import 'package:flutter_application_1/presentation/widgets/image_profile.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_application_1/presentation/widgets/image_profile.addi.dart';
 import 'package:provider/provider.dart';
-
 import '../../domain/model/data_model.dart';
 import 'home_screen.dart';
 
@@ -56,7 +50,7 @@ class StudentAddScreen extends StatelessWidget {
                       height: 20,
                     ),
                     const Center(
-                      child: ImageProfile(),
+                      child: ImageProfileAdd(),
                     ),
                     const SizedBox(
                       height: 20,

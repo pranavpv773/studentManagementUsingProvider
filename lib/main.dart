@@ -39,7 +39,7 @@ class StudentManagement extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.pink,
         ),
-        home: LoginScreen(),
+        home: StudentHomeScreen(),
       ),
     );
   }

@@ -141,7 +141,7 @@ class StudentEditScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    updateStudent();
+                    updateStudent(context, studentmodel);
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (ctx1) => const StudentHomeScreen(),
@@ -162,7 +162,7 @@ class StudentEditScreen extends StatelessWidget {
 
 //-------------------------------------|||||Functions||||||------------------------------------------------------------------------------------
 
-  Future<void> takePhoto() async {
+  Future<void> takePhoto(BuildContext context) async {
     XFile? image = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
@@ -170,12 +170,15 @@ class StudentEditScreen extends StatelessWidget {
     if (image == null) return;
 
     final File imageTemprary = File(image.path);
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = imageTemprary;
-    // Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-    //         listen: false)
-    //     .imageadd(image);
+    Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
+        imageTemprary;
+    Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
+        File(image.path);
+
+    final bayts = File(image.path).readAsBytesSync();
+    String encode = base64Encode(bayts);
+    context.read<StudentDbFunctions>().changeImage(encode);
+    base64Encode(bayts);
     print("image");
   }
 
@@ -188,25 +191,13 @@ class StudentEditScreen extends StatelessWidget {
       print("NULL");
       return;
     }
+    Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
+        File(image.path);
 
-    // File imageTemprary = File(
-    //   image.path,
-    // );
-    // print("image.path: ${image.path}");
-    Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-            listen: false)
-        .imagefile = File(image.path);
-    // print("imageTemprary:$imageTemprary");
-    // print(
-    //     "imagefile:${Provider.of<StudentDbFunctions>(_formkey.currentState!.context, listen: false).imagefile}");
-    // Provider.of<StudentDbFunctions>(_formkey.currentState!.context,
-    //         listen: false)
-    //     .imageadd(image);
     final bayts = File(image.path).readAsBytesSync();
     String encode = base64Encode(bayts);
     context.read<StudentDbFunctions>().changeImage(encode);
-    // Provider.of<StudentDbFunctions>(context, listen: true).imgstring =
-    //     base64Encode(bayts);
+    base64Encode(bayts);
   }
 
   Future<void> showBottomSheet(BuildContext context) async {
@@ -241,7 +232,7 @@ class StudentEditScreen extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        takePhoto();
+                        takePhoto(context);
                       },
                       icon: Icon(
                         Icons.image_rounded,
@@ -259,43 +250,52 @@ class StudentEditScreen extends StatelessWidget {
   }
 
   Widget imageprofile(BuildContext context, String imgstri) {
-    return Stack(
-      children: [
-        CircleAvatar(
-          radius: 40,
-          child: StudentDbFunctions().imgstring.trim().isEmpty
-              ? CircleAvatar(
-                  radius: 50,
-                  backgroundImage: MemoryImage(
-                    const Base64Decoder().convert(studentmodel.imgstri),
+    return Consumer<StudentDbFunctions>(builder: (context, value, child) {
+      return Stack(
+        children: [
+          CircleAvatar(
+            radius: 40,
+            child: value.imgstring.trim().isNotEmpty
+                ? CircleAvatar(
+                    radius: 50,
+                    backgroundImage: MemoryImage(
+                      const Base64Decoder().convert(value.imgstring),
+                    ),
+                  )
+                : CircleAvatar(
+                    radius: 50,
+                    backgroundImage: MemoryImage(
+                      const Base64Decoder().convert(studentmodel.imgstri),
+                    ),
                   ),
-                )
-              : Container(
-                  color: kWhite,
-                ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20, left: 18),
-          child: IconButton(
-            onPressed: () {
-              showBottomSheet(context);
-            },
-            icon: const Icon(
-              Icons.camera_alt,
-              color: Color.fromARGB(255, 236, 236, 236),
-              size: 20,
-            ),
           ),
-        )
-      ],
-    );
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 18),
+            child: IconButton(
+              onPressed: () {
+                showBottomSheet(context);
+              },
+              icon: const Icon(
+                Icons.camera_alt,
+                color: Color.fromARGB(255, 236, 236, 236),
+                size: 20,
+              ),
+            ),
+          )
+        ],
+      );
+    });
   }
 
-  Future<void> updateStudent() async {
+  Future<void> updateStudent(
+      BuildContext context, StudentModel studentmodel) async {
     final name = nameUpdateController.text;
     final age = ageUpdateController.text;
     final phone = phoneUpdateController.text;
     final places = placeUpdateController.text;
+    if (context.read<StudentDbFunctions>().imgstring.isEmpty) {
+      context.read<StudentDbFunctions>().imgstring = studentmodel.imgstri;
+    }
 
     if (name.isEmpty || age.isEmpty || phone.isEmpty || places.isEmpty) {
       return;
@@ -305,16 +305,15 @@ class StudentEditScreen extends StatelessWidget {
         age: age,
         phoneNumber: phone,
         place: places,
-        imgstri: "",
+        imgstri: context.read<StudentDbFunctions>().imgstring,
         id: studentmodel.id,
       );
 
-      if (studentup.id != null) {
-        await Provider.of<StudentDbFunctions>(
-          _formkey.currentState!.context,
-          listen: false,
-        ).studentupdate(studentup.id!, studentup);
-      }
+      await Provider.of<StudentDbFunctions>(_formkey.currentContext!,
+              listen: false)
+          .studentupdate(studentup.id!, studentup);
+
+      // context.read<StudentDbFunctions>().imgstring = '';
     }
   }
 }

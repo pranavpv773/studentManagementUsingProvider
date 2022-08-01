@@ -16,6 +16,7 @@ class StudentHomeScreen extends StatelessWidget {
             .getallStudents();
       },
     );
+    context.read<StudentDbFunctions>().imgstring = '';
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -23,20 +24,6 @@ class StudentHomeScreen extends StatelessWidget {
           centerTitle: true,
           title: const Text("Teacher's Record"),
           backgroundColor: kPink,
-          actions: [
-            IconButton(
-              onPressed: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (ctx) => ScreenSearch(),
-                //   ),
-                // );
-              },
-              icon: const Icon(
-                Icons.search,
-              ),
-            )
-          ],
         ),
         body: Container(
           color: kBackground,
