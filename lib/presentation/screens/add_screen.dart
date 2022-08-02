@@ -202,13 +202,36 @@ class StudentAddScreen extends StatelessWidget {
                               ),
                             ),
                           );
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (ctx1) => const StudentHomeScreen(),
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (ctx1) {
+                              return AlertDialog(
+                                title: const Text("Error"),
+                                content: const Text(
+                                  "please fill all fields!!!",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx1).pop();
+                                    },
+                                    child: const Text(
+                                      'Close',
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          );
                         }
                         onAddStudentButtonClicked(context);
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (ctx1) => const StudentHomeScreen(),
-                          ),
-                        );
                       },
                       child: const Text(
                         'Add Student',
@@ -231,11 +254,32 @@ class StudentAddScreen extends StatelessWidget {
     final age = _ageController.text;
     final phoneNumber = _phoneNumberController.text;
     final place = _placeController.text;
-    if (context.read<StudentDbFunctions>().imgstring.isEmpty) {
-      context.read<StudentDbFunctions>().changeImage(kProPic);
-    }
+
     if (name.isEmpty || age.isEmpty || phoneNumber.isEmpty || place.isEmpty) {
-      return;
+      return showDialog(
+        context: context,
+        builder: (ctx1) {
+          return AlertDialog(
+            title: const Text(
+              "Error",
+            ),
+            content: Text(
+              "please fill all fields!!!",
+              style: TextStyle(color: kPink),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx1).pop();
+                },
+                child: const Text(
+                  'Close',
+                ),
+              )
+            ],
+          );
+        },
+      );
     } else {
       final _student = StudentModel(
         name: name,
