@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/domain/database/db_functions.dart';
-import 'package:flutter_application_1/presentation/screens/home_screen.dart';
 import 'package:flutter_application_1/presentation/screens/login_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';

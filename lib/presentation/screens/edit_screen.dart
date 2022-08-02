@@ -179,7 +179,6 @@ class StudentEditScreen extends StatelessWidget {
     String encode = base64Encode(bayts);
     context.read<StudentDbFunctions>().changeImage(encode);
     base64Encode(bayts);
-    print("image");
   }
 
   Future<void> takecamera(BuildContext context) async {
@@ -188,7 +187,6 @@ class StudentEditScreen extends StatelessWidget {
     );
 
     if (image == null) {
-      print("NULL");
       return;
     }
     Provider.of<StudentDbFunctions>(context, listen: false).imagefile =
