@@ -33,7 +33,7 @@ class StudentHomeTile extends StatelessWidget {
       ),
       leading: CircleAvatar(
         radius: 40,
-        child: StudentDbFunctions().imgstring.trim().isEmpty
+        child: context.read<StudentDbFunctions>().imgstring.isEmpty
             ? CircleAvatar(
                 radius: 50,
                 backgroundImage: MemoryImage(

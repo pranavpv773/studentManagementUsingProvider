@@ -41,16 +41,4 @@ class StudentDbFunctions with ChangeNotifier {
     this.imgstring = imgstring;
     notifyListeners();
   }
-
-  // imageadd(XFile? pickImage) {
-  //   if (pickImage == null) {
-  //     print("pickImage NULL");
-  //     return 'assets/download.png';
-  //   } else {
-  //     final bayts = File(pickImage.path).readAsBytesSync();
-  //     imgstring = base64Encode(bayts);
-  //     print("imageFunction:$imgstring");
-  //   }
-  //   notifyListeners();
-  // }
 }

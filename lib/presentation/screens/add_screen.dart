@@ -231,6 +231,9 @@ class StudentAddScreen extends StatelessWidget {
     final age = _ageController.text;
     final phoneNumber = _phoneNumberController.text;
     final place = _placeController.text;
+    if (context.read<StudentDbFunctions>().imgstring.isEmpty) {
+      context.read<StudentDbFunctions>().changeImage(kProPic);
+    }
     if (name.isEmpty || age.isEmpty || phoneNumber.isEmpty || place.isEmpty) {
       return;
     } else {
