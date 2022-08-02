@@ -16,13 +16,14 @@ class StudentHomeScreen extends StatelessWidget {
             .getallStudents();
       },
     );
-    context.read<StudentDbFunctions>().imgstring = '';
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: const Text("Teacher's Record"),
+          title: const Text(
+            "Teacher's Record",
+          ),
           backgroundColor: kPink,
         ),
         body: Container(
@@ -33,7 +34,9 @@ class StudentHomeScreen extends StatelessWidget {
                 return Center(
                   child: Text(
                     "No Data found",
-                    style: TextStyle(color: kWhite),
+                    style: TextStyle(
+                      color: kWhite,
+                    ),
                   ),
                 );
               }
