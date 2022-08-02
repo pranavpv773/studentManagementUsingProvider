@@ -86,6 +86,7 @@ class StudentAddScreen extends StatelessWidget {
                       height: 10,
                     ),
                     TextFormField(
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter some text';
@@ -116,6 +117,7 @@ class StudentAddScreen extends StatelessWidget {
                       height: 10,
                     ),
                     TextFormField(
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter some text';
