@@ -247,8 +247,7 @@ class StudentAddScreen extends StatelessWidget {
 
       Provider.of<StudentDbFunctions>(context, listen: false)
           .addStudent(_student);
-      print(
-          'functionAdd${Provider.of<StudentDbFunctions>(context, listen: false).imgstring}');
+
       context.read<StudentDbFunctions>().imgstring = '';
     }
   }

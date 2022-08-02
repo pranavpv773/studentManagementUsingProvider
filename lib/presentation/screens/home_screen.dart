@@ -30,9 +30,10 @@ class StudentHomeScreen extends StatelessWidget {
           child: Consumer<StudentDbFunctions>(
             builder: (context, value, child) {
               if (value.studentlistNotifier.isEmpty) {
-                return const Center(
+                return Center(
                   child: Text(
                     "No Data found",
+                    style: TextStyle(color: kWhite),
                   ),
                 );
               }
